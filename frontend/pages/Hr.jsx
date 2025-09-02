@@ -1,9 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import  socket  from "../src/socket";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 
 function Hr() {
   const navigate = useNavigate();
+  const area=110062
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+
+
+
+
+  const submitHandler=(e)=>{
+    e.preventDefault()
+      const job={
+        title:title,
+        description:description
+        
+      }
+      toast.success("Job Created Succesfully!");
+      socket.emit("new_job_created",{job,area})
+  }
 
   return (
     <div className="min-h-screen bg-[#fdf6f0] flex items-center justify-center px-4">
@@ -36,6 +58,8 @@ function Hr() {
           </label>
           <input
             type="text"
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)}
             placeholder="Enter job title"
             className="mt-1 w-full rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
           />
@@ -46,13 +70,15 @@ function Hr() {
             Job Description
           </label>
           <textarea
+          value={description}
+            onChange={(e)=>setDescription(e.target.value)}
             placeholder="Enter job details"
             className="mt-1 w-full rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
             rows="4"
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium text-[#5c4033]">
             Area / Pincode
           </label>
@@ -61,10 +87,11 @@ function Hr() {
             placeholder="e.g. 110062"
             className="mt-1 w-full rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
           />
-        </div>
+        </div> */}
 
         <button
           type="submit"
+          onClick={submitHandler}
           className="w-full cursor-pointer bg-[#b08968] text-white py-2 rounded-lg hover:bg-[#8c6a4d] transition"
         >
           Post Job

@@ -10,6 +10,7 @@ import Hr from "../pages/Hr"
 import User from "../pages/User"
 
 
+
 function App() {
   
 
@@ -17,12 +18,14 @@ function App() {
 
   return (
     
-      <Routes>
+    <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/provider" element={<Hr />} />
         <Route path="/seeker" element={<User />} />
       </Routes>
-    
+      
+      
+      
     
   );
 }
