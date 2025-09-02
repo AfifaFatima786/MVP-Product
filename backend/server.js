@@ -24,6 +24,7 @@ io.on("connection",(socket)=>{
     io.emit("new_job",{job})
 
     })
+    
 
 })
 

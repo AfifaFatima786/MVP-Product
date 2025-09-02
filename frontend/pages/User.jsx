@@ -27,6 +27,9 @@ function User() {
       ]);
       toast.success("New Job Added!")
     });
+    return () => {
+      socket.off("new_job");
+};
   }, []);
 
   return (
@@ -48,44 +51,41 @@ function User() {
             Job Seeker
           </h1>
           <p className="text-[#7d5a50] mt-2 text-center">
-            Search and apply for jobs in your area.
+            Apply for jobs in your area.
           </p>
 
-          {/* Search Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
-            <input
-              type="text"
-              placeholder="Enter area / pincode"
-              className="flex-1 rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
-            />
-            <button className="bg-[#b08968] text-white px-4 py-2 rounded-lg hover:bg-[#8c6a4d] transition">
-              Search
-            </button>
-          </div>
+          
 
           {/* Job Listings */}
           <div className="mt-8 space-y-4">
             {console.log(userData)}
 
-            {userData.map((data, idx) => (
-              <div
-                key={idx}
-                className="border border-[#d6c3b2] rounded-xl p-4 shadow-sm hover:shadow-md transition"
-              >
-                <h2 className="text-xl font-semibold text-[#5c4033]">
-                  {data.title}
-                </h2>
-                <p className="text-[#7d5a50] text-sm mt-1">
-                  {data.description}
-                </p>
-                <p className="text-[#5c4033] mt-2 font-medium">
-                  📍 Area: {data.areaCode}
-                </p>
-                <button className="mt-3 px-4 py-2 bg-[#5c4033] text-white rounded-lg hover:bg-[#7d5a50]">
-                  Apply Now
-                </button>
-              </div>
-            ))}
+            {!userData || userData.length === 0 ? (
+  <div className="text-center text-[#5c4033] font-medium py-6">
+    No Jobs available currently.
+  </div>
+) : (
+  userData.map((data, idx) => (
+    <div
+      className="border border-[#d6c3b2] rounded-xl p-4 shadow-sm hover:shadow-md transition"
+      key={idx}
+    >
+      <h2 className="text-xl font-semibold text-[#5c4033]">
+        {data.title}
+      </h2>
+      <p className="text-[#7d5a50] text-sm mt-1">
+        {data.description}
+      </p>
+      <p className="text-[#5c4033] mt-2 font-medium">
+        📍 Area: {data.area || "11062"}
+      </p>
+
+      <button className="mt-3 px-4 py-2 bg-[#5c4033] text-white rounded-lg hover:bg-[#7d5a50]">
+        Apply Now
+      </button>
+    </div>
+  ))
+)}
           </div>
         </div>
       </div>
