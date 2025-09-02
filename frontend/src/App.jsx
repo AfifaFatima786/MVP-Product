@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+
 import "react-toastify/dist/ReactToastify.css";
 
-const socket = io("http://localhost:3000"); // backend URL
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Hr from "../pages/Hr"
