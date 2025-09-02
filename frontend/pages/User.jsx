@@ -77,7 +77,7 @@ function User() {
         {data.description}
       </p>
       <p className="text-[#5c4033] mt-2 font-medium">
-        📍 Area: {data.area || "11062"}
+        📍 Area: {data.area || "110062"}
       </p>
 
       <button className="mt-3 px-4 py-2 bg-[#5c4033] text-white rounded-lg hover:bg-[#7d5a50]">

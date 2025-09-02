@@ -23,8 +23,11 @@ function Hr() {
         description:description
         
       }
+
       toast.success("Job Created Succesfully!");
       socket.emit("new_job_created",{job,area})
+      setTitle("");
+    setDescription("");
   }
 
   return (
