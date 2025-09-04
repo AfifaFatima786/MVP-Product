@@ -6,23 +6,23 @@ import { toast } from "react-toastify";
 
 function User() {
   const navigate = useNavigate();
-  const area = 110062;
+  
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [userData, setUserData] = useState([]);
+ 
+  const [jobData, setjobData] = useState([]);
+  
 
   useEffect(() => {
     
     
-    socket.on("new_job", ({ job, area }) => {
-      console.log(job, area);
-      setUserData((prevUserData) => [
-        ...prevUserData,
+    socket.on("new_job", ( job ) => {
+      console.log(job);
+      setjobData((prevjobData) => [
+        ...prevjobData,
         {
           title: job.title,
           description: job.description || "",
-          areaCode: area,
+          areaCode: job.areaCode,
         },
       ]);
       toast.success("New Job Added!")
@@ -58,14 +58,14 @@ function User() {
 
           {/* Job Listings */}
           <div className="mt-8 space-y-4">
-            {console.log(userData)}
+            {console.log(jobData)}
 
-            {!userData || userData.length === 0 ? (
+            {!jobData || jobData.length === 0 ? (
   <div className="text-center text-[#5c4033] font-medium py-6">
     No Jobs available currently.
   </div>
 ) : (
-  userData.map((data, idx) => (
+  jobData.map((data, idx) => (
     <div
       className="border border-[#d6c3b2] rounded-xl p-4 shadow-sm hover:shadow-md transition"
       key={idx}

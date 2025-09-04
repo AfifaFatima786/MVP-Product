@@ -19,9 +19,10 @@ app.get('/',(req,res)=>{
 
 io.on("connection",(socket)=>{
     console.log("connected user")
-    socket.on("new_job_created", ({job,area}) =>{   console.log("Job aagyi bhai",job);
+    
+    socket.on("new_job_created", (job) =>{   console.log("Job aagyi bhai",job);
 
-    io.emit("new_job",{job})
+    io.emit("new_job",job)
 
     })
     

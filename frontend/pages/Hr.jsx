@@ -9,25 +9,30 @@ import { toast } from "react-toastify";
 function Hr() {
   const navigate = useNavigate();
   const area=110062
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
+  
+  const [jobData, setjobData] = useState({
+    title:"",
+    description:"",
+    areaCode:area
+  });
 
 
 
 
   const submitHandler=(e)=>{
     e.preventDefault()
-      const job={
-        title:title,
-        description:description
+      setjobData(() => ({
         
-      }
+          title: jobData.title,
+          description: jobData.description || "",
+          areaCode: area,
+        
+  }));
 
       toast.success("Job Created Succesfully!");
-      socket.emit("new_job_created",{job,area})
-      setTitle("");
-    setDescription("");
+      socket.emit("new_job_created",jobData)
+      setjobData({title:"",description:""});
+    
   }
 
   return (
@@ -61,8 +66,8 @@ function Hr() {
           </label>
           <input
             type="text"
-            value={title}
-            onChange={(e)=>setTitle(e.target.value)}
+            value={jobData.title}
+            onChange={(e) => setjobData({ ...jobData, title: e.target.value})}
             placeholder="Enter job title"
             className="mt-1 w-full rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
           />
@@ -73,8 +78,8 @@ function Hr() {
             Job Description
           </label>
           <textarea
-          value={description}
-            onChange={(e)=>setDescription(e.target.value)}
+          value={jobData.description}
+           onChange={(e) => setjobData({ ...jobData, description: e.target.value})}
             placeholder="Enter job details"
             className="mt-1 w-full rounded-lg border border-[#d6c3b2] p-2 focus:ring-2 focus:ring-[#b08968] focus:outline-none"
             rows="4"
